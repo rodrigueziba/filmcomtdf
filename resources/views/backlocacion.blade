@@ -1,0 +1,90 @@
+@extends('layouts.app')
+
+
+<head>
+       
+        <link href="https://cdn.jsdelivr.net/npm/tailwindcss/dist/tailwind.min.css" rel="stylesheet">
+
+    
+    
+@push('js')
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script src="http://maps.google.com/maps/api/js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gmaps.js/0.4.24/gmaps.js"></script>
+     
+
+     <script type="text/javascript">
+
+
+    var locaciones = <?php print_r(json_encode($locaciones)) ?>;
+
+
+    var mymap = new GMaps({
+      el: '#mymap',
+      lat: 21.170240,
+      lng: 72.831061,
+      zoom:6
+    });
+
+
+    $.each( locaciones, function( index, value ){
+        mymap.addMarker({
+          lat: value.address_latitude, 
+          lng: value.address_longitude,
+          title: value.nombre,
+          click: function(e) {
+            alert('This is '+value.nombre+', gujarat from India.');
+          }
+        });
+   });
+
+
+  </script>
+ @endpush
+
+    <style type="text/css">
+        #mymap {
+            border:1px solid black;
+            width: 800px;
+            height: 500px;
+        }
+    </style>
+
+
+
+
+    </head>
+
+ 
+
+@section('content')
+ <div class="row justify-content-center">
+ <div id="mymap"></div>
+ </div>
+
+ 
+
+
+
+      <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card ">
+                <div class="card-header">
+                    <div class="row">
+                        <div class="col-8">
+                            <h4 class="card-title">{{ __('Listado de Locaciones') }}</h4>
+                        </div>
+                        
+                    </div>
+                </div>
+                <div class="card-body">
+
+
+
+
+                </div>
+                
+            </div>
+        </div>
+    </div>
+@endsection
